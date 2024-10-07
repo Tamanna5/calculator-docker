@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for MERN Application
+name: CI/CD Pipeline for Docker Application
 
 on:
   push:
@@ -13,27 +13,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.x' # Adjust version if needed
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
 
-      - name: Install Dependencies
+      - name: Build Docker Image
         run: |
-          cd client
-          npm install
-          cd ../server
-          npm install
-
-      - name: Run Tests
-        run: |
-          cd server
-          npm test
-
-      - name: Build Client (React app)
-        run: |
-          cd client
-          npm run build
+          docker build -t calculator-app .
 
       - name: Deploy to Local Server via SSH
         env:
@@ -42,9 +27,8 @@ jobs:
           eval "$(ssh-agent -s)"
           echo "$SSH_PRIVATE_KEY" | ssh-add -
           ssh -o StrictHostKeyChecking=no your_user@your_server_ip << 'EOF'
-            cd /path/to/your/app  # Path to the app on the local server
+            cd /path/to/docker/app  # Path to the app on the local server
             git pull origin main   # Pull latest changes from the GitHub repo
-            cd client && npm install && npm run build  # Rebuild React app
-            cd ../server && npm install  # Install server dependencies
-            pm2 restart all  # Restart the Node.js app using PM2
+            docker-compose down   # Stop current Docker containers
+            docker-compose up -d  # Rebuild and restart Docker containers
           EOF
