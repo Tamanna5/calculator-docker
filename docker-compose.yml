@@ -1,9 +1,9 @@
-version: '3.8'
+version: '3'
 
 services:
-  node-app:
-    build: .
+  calculator-app:
+    image: calculator-app
+    container_name: calculator-app-container
     ports:
-      - '5000:8080' 
-    volumes:
-      - .:/usr/app
+      - "3000:3000"  # Port mapping
+    restart: always
