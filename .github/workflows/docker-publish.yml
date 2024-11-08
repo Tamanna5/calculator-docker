@@ -66,6 +66,4 @@ jobs:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
-      - name: Pull specific Docker image from GHCR
-        run: |
-          docker pull ghcr.io/tamanna5/calculator-docker:sha256-049afd06ba62ca7de23b98bfb5dbdae1826435090f82409a8eb4ef601d80e00c.sig
+     
