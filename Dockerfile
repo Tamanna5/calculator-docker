@@ -1,8 +1,12 @@
-FROM python:3.9-slim
+
+FROM node:14
 WORKDIR /app
-COPY . /app
-RUN pip install --no-cache-dir -r requirements.txt
-EXPOSE 80
-ENV NAME World
-CMD ["python", "app.py"]
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+RUN npm install -g serve
+EXPOSE 3000
+CMD ["serve", "-s", "build"]
+
 
