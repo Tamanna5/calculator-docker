@@ -20,12 +20,12 @@ jobs:
         run: |
           docker build -t calculator-docker .
 
-      - name: Deploy to Local Server via SSH
+      - name: Deploy to Remote Server via SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           eval "$(ssh-agent -s)"
-          echo "$SSH_PRIVATE_KEY" | ssh-add -
+          printf "%s" "$SSH_PRIVATE_KEY" | ssh-add -
           ssh -o StrictHostKeyChecking=no your_user@your_server_ip << 'EOF'
             cd /path/to/docker/app  # Path to the app on the local server
             git pull origin main    # Pull latest changes from the GitHub repo
