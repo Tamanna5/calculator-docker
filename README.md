@@ -2,8 +2,6 @@
 
 [![Docker CI](https://github.com/mdarif/project-management/actions/workflows/docker.yml/badge.svg?branch=master)](https://github.com/mdarif/project-management/actions/workflows/docker.yml) [![Node.js CI](https://github.com/mdarif/project-management/actions/workflows/node.js.yml/badge.svg)](https://github.com/mdarif/project-management/actions/workflows/node.js.yml)
 
-
-
 <p>
   <a href="https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
